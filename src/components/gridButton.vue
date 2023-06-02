@@ -41,6 +41,7 @@ function clickGridButton() {
   color: #2f0341;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   margin: 10px;
+  padding: 0;
 }
 
 </style>
