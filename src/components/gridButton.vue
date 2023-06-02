@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { defineProps, ref, defineEmits } from 'vue';
+import { defineEmits, ref } from 'vue';
 
-const props = defineProps({
+/* const props = defineProps({
     name: String,
     value: {
         type: String,
@@ -9,18 +9,24 @@ const props = defineProps({
     },
     gameOver: null
 });
+ */
+
+let buttonValue = ref("");
 
 const emit = defineEmits(["click"]);
 
-const clickGridButton = (index: number) => {
-    emit("click", "index");
+function clickGridButton() {
+    //emit("click", "index");
+    buttonValue.value = buttonValue.value === "X" ? "O": "X";
+    console.log(buttonValue.value);
+    
 };  
 
 </script>
 
 <template>
-    <button class="gridButton" :name="name" :disabled="gameOver || value">
-      {{ value }}
+    <button class="gridButton" @click="clickGridButton">
+      {{ buttonValue }}
     </button>
   </template>
 
@@ -31,7 +37,7 @@ const clickGridButton = (index: number) => {
   width: 22vmin;
   border: none;
   border-radius: 8px;
-  font-size: 2rem;
+  font-size: 4rem;
   color: #2f0341;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   margin: 10px;

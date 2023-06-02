@@ -14,7 +14,7 @@
         const gameBoardCopy = gameBoard.value.slice();
         gameBoardCopy[index] = playerSymbol.value;
         gameBoard.value = gameBoardCopy;
-        playerSymbol.value = playerSymbol.value === (playerSymbol.value = "X") ? (playerSymbol.value = "O") : (playerSymbol.value ="X");
+        playerSymbol.value = playerSymbol.value === "X" ? "O": "X";
         emit("click", gameBoard.value);
     }
 
@@ -23,11 +23,9 @@
 <template>
      <h1>Next turn: {{ playerSymbol }}</h1>
     <div class="gameBoard">
-      <gridButton 
-        v-for="(gridButton, index) in gameBoard"
+      <gridButton v-for="(gridButton, index) in gameBoard"
         :key="`gridButton-${index}`"
         :label="`gridButton-${index}`"
-        :value="gridButton"
         :gameOver="gameOver"
         @click="clickGridButton(index)"/>
     </div>
