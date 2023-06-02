@@ -1,32 +1,40 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { defineProps, ref, defineEmits } from 'vue';
 
 const props = defineProps({
     name: String,
-    disabled: Boolean
+    value: {
+        type: String,
+        default: "",
+    },
+    gameOver: null
 });
 
-const value = "";
-const gameOver = false;
+const emit = defineEmits(["click"]);
+
+const clickGridButton = (index: number) => {
+    emit("click", "index");
+};  
 
 </script>
 
 <template>
     <button class="gridButton" :name="name" :disabled="gameOver || value">
-    {{ value }}
+      {{ value }}
     </button>
-</template>
+  </template>
 
 <style scoped>
 .gridButton {
   background: #ffffff;
-  height: 22vmin;
+  height: 23vmin;
   width: 22vmin;
   border: none;
   border-radius: 8px;
-  font-size: 12vmin;
-  color: #d161ff;
+  font-size: 2rem;
+  color: #2f0341;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  margin: 10px;
 }
 
 </style>
