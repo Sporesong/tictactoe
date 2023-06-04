@@ -54,7 +54,6 @@
     };
 
     function startNewGame() {
-        //försökte kalla på reset i gridButton med definExpose men lyckas inte.
         
         for(let i = 0; i < boardSize; i++) {
             btnRefs.value[i].reset();
