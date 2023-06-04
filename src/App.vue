@@ -1,14 +1,14 @@
 <script setup lang="ts">
   import gameBoard from "./components/gameBoard.vue";
   import setPlayers from "./components/setPlayers.vue";
-  import { onMounted, ref } from "vue";
-  let playersSet = ref(false);
+  import  { ref } from "vue";
 
-  onMounted(() => {
-    const handlePlayersSet = () => {
-      playersSet.value = true;
-    }
-  });
+  let playersSet = ref(false);
+  
+  function handlePlayersSet() {
+    playersSet.value = true;
+    console.log(playersSet);
+  }
 
 </script>
 
