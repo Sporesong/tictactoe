@@ -2,32 +2,33 @@
     import gridButton from "./gridButton.vue";
     import { defineProps, ref, defineEmits } from 'vue';
 
-    const props = defineProps({
-        gameOver: null
-    });
+    interface IplayerNames {
+        nameX: String,
+        nameO: String
+    };
 
-    const emit = defineEmits(["click"]);
+    const props = defineProps<IplayerNames>();
+
     const gameBoard = ref<Array<String | null>>(Array(9).fill(null));
-    const playerSymbol = ref<String>("X");
+    const playerSymbol = ref<String>("");
     
-    const clickGridButton = (index: number) => {
+    function clickGridButton(index: number) {
         const gameBoardCopy = gameBoard.value.slice();
         gameBoardCopy[index] = playerSymbol.value;
         gameBoard.value = gameBoardCopy;
-        playerSymbol.value = playerSymbol.value === "X" ? "O": "X";
-        emit("click", gameBoard.value);
+        playerSymbol.value = playerSymbol.value === "X" ? "O": "X";     
     }
 
 </script>
 
 <template>
-     <h1>Next turn: {{ playerSymbol }}</h1>
+     <h1>Next turn: {{ playerSymbol === "X" ? nameX : nameO }} </h1>
     <div class="gameBoard">
       <gridButton v-for="(gridButton, index) in gameBoard"
         :key="`gridButton-${index}`"
         :label="`gridButton-${index}`"
-        :gameOver="gameOver"
-        @click="clickGridButton(index)"/>
+        @click="clickGridButton(index)"
+        :turn="playerSymbol"/>
     </div>
   </template>
 

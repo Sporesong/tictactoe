@@ -1,12 +1,12 @@
 <script setup lang="ts">
-    import { ref, defineEmits } from "vue";
+    import { defineEmits } from "vue";
 
     const emits = defineEmits(["playersSet"]);
-    const playerX = ref("");
-    const playerO = ref("");
+    let playerX = "";
+    let playerO = "";
 
     function startGame() {
-        emits("playersSet");    
+        emits("playersSet", playerX, playerO);        
     }
 </script>
 

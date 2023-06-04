@@ -1,26 +1,20 @@
 <script setup lang="ts">
-import { defineEmits, ref } from 'vue';
+  import { defineEmits, ref } from 'vue';
 
-/* const props = defineProps({
-    name: String,
-    value: {
-        type: String,
-        default: "",
-    },
-    gameOver: null
-});
- */
+  let buttonValue = ref("");
 
-let buttonValue = ref("");
+  const emit = defineEmits(["click"]);
 
-const emit = defineEmits(["click"]);
+  interface IgridButton {
+    turn: String ;
+  };
 
-function clickGridButton() {
-    //emit("click", "index");
-    buttonValue.value = buttonValue.value === "X" ? "O": "X";
-    console.log(buttonValue.value);
-    
-};  
+  const props = defineProps<IgridButton>();
+
+  function clickGridButton() {
+    buttonValue.value = props.turn === "X" ? "O": "X";
+      emit("click", "index");
+  };  
 
 </script>
 
