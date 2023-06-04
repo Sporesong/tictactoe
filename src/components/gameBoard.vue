@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import gridButton from "./gridButton.vue";
-    import { defineProps, ref } from 'vue';
+    import { defineProps, onMounted, ref } from 'vue';
 
     interface IplayerNames {
         nameX: String,
@@ -11,13 +11,14 @@
 
     let gameBoard = ref<Array<String | null>>(Array(9).fill(null));
     const boardSize = 9;
-    const playerSymbol = ref<String>("");
-    let gameResult = "";
+    const playerSymbol = ref<String>("X");
+    let gameResult = ref("");
+    const btnRefs = ref();
     
     function clickGridButton(index: number) {
         const gameBoardCopy = gameBoard.value.slice();
-        playerSymbol.value = playerSymbol.value === "X" ? "O": "X";
         gameBoardCopy[index] = playerSymbol.value;
+        playerSymbol.value = playerSymbol.value === "X" ? "O": "X";
         gameBoard.value = gameBoardCopy;
         calculateWinner();     
     }
@@ -41,35 +42,41 @@
             gameBoard.value[a] === gameBoard.value[b] &&
             gameBoard.value[a] === gameBoard.value[c]
             ) {   
-                gameResult = `${gameBoard.value[a]} Wins`;
+                gameResult.value = `${gameBoard.value[a]} Wins`;
                 return;  
             }
         }
 
         if (gameBoard.value.every((val) => val)) {
-            gameResult ="Tie!";
+            gameResult.value ="Tie!";
             return;
         }
     };
 
     function startNewGame() {
         //försökte kalla på reset i gridButton med definExpose men lyckas inte.
-        gameResult = "";
+        
+        for(let i = 0; i < boardSize; i++) {
+            btnRefs.value[i].reset();
+        }
+        gameResult.value = "";
         playerSymbol.value = "X";
-    }
+        gameBoard.value = Array(9).fill(null);
+    }   
 
 </script>
 
 <template>
-     <h1 v-if="!gameResult" >Next turn: {{ playerSymbol === "X" ? nameX : nameO }} </h1>
-     <button v-else @click="startNewGame">Start new game</button>
+    <h1 v-if="!gameResult" >Player {{ playerSymbol === "X" ? nameX : nameO }}'s turn</h1>
+    <button v-else @click="startNewGame">Start new game</button>
     <div class="gameBoard">
-      <gridButton v-for="n in boardSize"
-        :key="`gridButton-${n}`"
-        :label="`gridButton-${n}`"
-        @click="clickGridButton(n)"
+      <gridButton v-for="index in boardSize"
+        :key="`gridButton-${index-1}`"
+        :label="`gridButton-${index-1}`"
+        @click="clickGridButton(index-1)"
         :turn="playerSymbol"
-        :gameOver="gameResult ? true : false"/>
+        :gameOver="gameResult"
+        ref="btnRefs"/>
     </div>
     <h1>{{ gameResult }}</h1>
   </template>

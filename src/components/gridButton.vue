@@ -1,12 +1,17 @@
 <script setup lang="ts">
   import { defineEmits, ref } from 'vue';
+import GameBoard from './gameBoard.vue';
+
+  defineExpose({
+    reset,
+  });
 
   let buttonValue = ref("");
 
   const emit = defineEmits(["click"]);
 
   interface IgridButton {
-    gameOver: boolean,
+    gameOver: String,
     turn: String ;
   };
 
@@ -16,7 +21,7 @@
     if(props.gameOver) {
       return;
     }
-    buttonValue.value = props.turn === "X" ? "O": "X";
+    buttonValue.value = props.turn === "X" ? "X": "O";
       emit("click", "index");
   };  
 
@@ -27,7 +32,7 @@
 </script>
 
 <template>
-    <button class="gridButton" @click.once="clickGridButton">
+    <button class="gridButton" @click="clickGridButton">
       {{ buttonValue }}
     </button>
   </template>
