@@ -19,7 +19,7 @@
 </script>
 
 <template>
-    <button class="gridButton" @click="clickGridButton">
+    <button class="gridButton" @click.once="clickGridButton">
       {{ buttonValue }}
     </button>
   </template>
