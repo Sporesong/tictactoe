@@ -6,15 +6,23 @@
   const emit = defineEmits(["click"]);
 
   interface IgridButton {
+    gameOver: boolean,
     turn: String ;
   };
 
   const props = defineProps<IgridButton>();
 
   function clickGridButton() {
+    if(props.gameOver) {
+      return;
+    }
     buttonValue.value = props.turn === "X" ? "O": "X";
       emit("click", "index");
   };  
+
+  function reset() {
+    buttonValue.value = "";
+  }
 
 </script>
 

@@ -6,7 +6,7 @@
     let playerO = "";
 
     function startGame() {
-        emits("playersSet", playerX, playerO);        
+        emits("playersSet", playerX, playerO);         
     }
 </script>
 
